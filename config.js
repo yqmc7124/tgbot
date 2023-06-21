@@ -1,7 +1,7 @@
 module.exports =  {
     token: '6162797200:AAHEW85jl7QbQfsgAX5UFU3dvk4UhurzEIo',
     webhook: {
-        url: 'https://tgbot-jahaih6yg-yqmc7124.vercel.app'
+        url: 'https://tgbot-seven-eta.vercel.app'
     },
     polling: { // Optional. Use polling.
         interval: 1000, // Optional. How often check updates (in ms).

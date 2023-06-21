@@ -2,7 +2,8 @@ const config = require('./config')
 const TeleBot = require('./lib/telebot');
 const bot = new TeleBot({
     token: config.token,
-    polling: config.polling
+    webhook: config.webhook
+    // polling: config.polling
 });
 
 var lastMessage;
