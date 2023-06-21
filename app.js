@@ -2,7 +2,7 @@ const config = require('./config')
 const TeleBot = require('./lib/telebot');
 const bot = new TeleBot({
     token: config.token,
-    webhook: config.webhook
+    polling: config.polling
 });
 
 var lastMessage;
@@ -15,7 +15,7 @@ bot.on('/start', msg => {
         msg.from.id, photoUrl, {caption: 'This is a default caption.'}
     ).then(re => {
         // Get message id and chat
-        lastMessage = [msg.from.id, re.result.message_id];
+        lastMessage = [msg.from.id, re.message_id];
         bot.sendMessage(msg.from.id, 'Now set a new caption using /edit <caption>');
     });
 
