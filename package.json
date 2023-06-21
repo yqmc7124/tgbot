@@ -13,6 +13,7 @@
     "eslint": "^6.8.0"
   },
   "scripts": {
+    "build": "node app.js",
     "test": "./node_modules/.bin/ava test/index.js",
     "lint": "./node_modules/.bin/eslint **/*.js"
   },
