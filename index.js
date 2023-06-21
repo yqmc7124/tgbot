@@ -41,4 +41,6 @@ bot.on('/edit', msg => {
 console.log("start server:=========")
 bot.start();
 
-module.exports = bot
+module.exports = function () {
+    return 'good job'
+}
