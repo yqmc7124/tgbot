@@ -39,9 +39,28 @@ bot.on('/edit', msg => {
     });
 
 });
-console.log("start server:=========")
 bot.start();
 
-module.exports = function () {
-    return 'good job'
+function handleUpdateMessage(body) {
+    try {
+        const update = JSON.parse(body);
+        bot.receiveUpdates([update]);
+    } catch (error) {
+        if (bot.logging) {
+            console.log('[bot.error.webhook]', error);
+        }
+    }
 }
+module.exports = {
+    listener: function (req, res, next) {
+        console.log("url:", req.url)
+        switch (req.url) {
+            case '/updateMessage': {
+                handleUpdateMessage(req.body)
+                break
+            }
+        }
+        res.end()
+    }
+}
+
