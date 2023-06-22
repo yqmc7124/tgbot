@@ -10,7 +10,11 @@ app.use(function (req, res, next) {
     }
 })
 app.use('/api/tg', function (req, res, next) {
-    bot.listener(req, res, next)
+    if (req.method === 'POST') {
+        bot.listener(req, res, next)
+    } else {
+        next()
+    }
 })
 app.get('/api', (req, res) => {
     res.setHeader('Content-Type', 'text/html');

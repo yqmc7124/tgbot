@@ -39,11 +39,16 @@ bot.on('/edit', msg => {
     });
 
 });
+bot.on('update', msg => {
+    console.log('on update:', msg)
+})
 bot.start();
 
 function handleUpdateMessage(body) {
+    console.log("handleUpdateMessage:", body)
     try {
         const update = JSON.parse(body);
+        console.log('receiveUpdates:', update)
         bot.receiveUpdates([update]);
     } catch (error) {
         if (bot.logging) {
