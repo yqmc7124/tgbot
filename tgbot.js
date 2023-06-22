@@ -61,11 +61,18 @@ module.exports = {
         console.log("url:", req.url)
         switch (req.url) {
             case '/updateMessage': {
-                handleUpdateMessage(req.body)
+                let body = '';
+                req.on('data', (data) => body += data);
+                req.on('end', () => {
+                    handleUpdateMessage(body)
+                    res.end()
+                })
                 break
             }
+            default: {
+                res.end()
+            }
         }
-        res.end()
     }
 }
 
