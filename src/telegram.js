@@ -309,18 +309,20 @@ class TelegramBot extends EventEmitter {
     return new Promise((resolve, reject) => {
       // console.log(options)
       streamedRequest(options.url, options, (error, response, body) => {
-        // let data;
-        // try {
-        //   data = JSON.parse(body);
-        // } catch (err) {
-        //   return reject(new errors.ParseError(`Error parsing response: ${body}`, resp));
-        // }
-        console.log('result:', body)
-        if (error || !body || !body.ok || response.statusCode !== 200) {
-          reject(new errors.TelegramError(`${response.description}`, response))
-        } else {
-          resolve(body);
+        console.log('result:', error, body)
+        console.log('response:', response.statusCode, response.body)
+        let data;
+        try {
+          data = JSON.parse(body);
+          resolve(data);
+        } catch (err) {
+          return reject(new errors.ParseError(`Error parsing response: ${body}`, response));
         }
+        // if (error || !body || !body.ok || response.statusCode !== 200) {
+        //   reject(new errors.TelegramError(`${response.description}`, response))
+        // } else {
+        // resolve(body);
+        // }
       });
     }).catch(err => {
       console.log('err:', err)
