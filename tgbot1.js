@@ -29,7 +29,7 @@ bot.onText(/\/start/, msg => {
        return bot.sendMessage(msg.from.id, 'Now set a new caption using /edit <caption>');
     })
         .finally(() => {
-            execCallback()
+            execCallback(msg)
         })
 });
 
@@ -48,14 +48,14 @@ bot.onText(/\/edit/, msg => {
       return bot.sendMessage(msg.from.id, `Caption changed to: ${ caption }`);
     })
         .finally(() => {
-            execCallback()
+            execCallback(msg)
         })
 });
 
 bot.onText(/^[^/].*/, msg => {
    return bot.sendMessage(msg.chat.id, 'I am alive!')
        .finally(() => {
-            execCallback()
+            execCallback(msg)
         })
 })
 
@@ -72,7 +72,7 @@ function addCallback(data, fun) {
     }
 }
 function execCallback(msg) {
-    if (callback[msg.update_id]) {
+    if (msg && msg.update_id && callback[msg.update_id]) {
         callback[msg.update_id]()
         callback[msg.update_id] = undefined
     }
