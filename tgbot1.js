@@ -14,18 +14,19 @@ if (config.webhook) {
 }
 
 bot.onText(/\/start/, msg => {
-    // console.log("start:", msg)
+    console.log("start:")
 
     // Send image with caption
     return bot.sendPhoto(
         msg.from.id, photoUrl, {caption: 'This is a default caption.'}
     ).then(re => {
         // Get message id and chat
+        console.log("/start re:", re)
         lastMessage = [msg.from.id, re.message_id];
        return bot.sendMessage(msg.from.id, 'Now set a new caption using /edit <caption>');
     })
         .catch(err => {
-            console.log("/start", err)
+            console.log("/start err:", err)
         })
 
 });
