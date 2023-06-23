@@ -60,7 +60,7 @@ module.exports = {
                 let body = '';
                 req.on('data', (data) => body += data);
                 req.on('end', () => {
-                    handleUpdateMessage(body)
+                    handleUpdateMessage(JSON.parse(body))
                     res.end()
                 })
                 break
