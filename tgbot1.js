@@ -1,5 +1,5 @@
 const config = require('./config')
-const TelegramBot = require('node-telegram-bot-api');
+const TelegramBot = require('./src/telegram');
 
 var lastMessage;
 var photoUrl = 'https://telegram.org/img/tl_card_destruct.gif';
