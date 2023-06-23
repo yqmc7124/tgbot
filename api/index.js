@@ -1,4 +1,4 @@
-const bot = require('../tgbot')
+const bot = require('../tgbot1')
 
 const express = require('express');
 const app = express();
