@@ -61,8 +61,10 @@ module.exports = {
                 let body = '';
                 req.on('data', (data) => body += data);
                 req.on('end', () => {
-                    res.end()
                     handleUpdateMessage(JSON.parse(body))
+                    setTimeout(() => {
+                        res.end()
+                    }, 1000)
                 })
                 break
             }
