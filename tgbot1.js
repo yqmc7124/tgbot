@@ -14,7 +14,7 @@ if (config.webhook) {
 }
 
 bot.onText(/\/start/, msg => {
-    console.log("start:", msg)
+    // console.log("start:", msg)
 
     // Send image with caption
     return bot.sendPhoto(
@@ -22,14 +22,15 @@ bot.onText(/\/start/, msg => {
     ).then(re => {
         // Get message id and chat
         lastMessage = [msg.from.id, re.message_id];
-        bot.sendMessage(msg.from.id, 'Now set a new caption using /edit <caption>');
-    });
+       return bot.sendMessage(msg.from.id, 'Now set a new caption using /edit <caption>');
+    })
+        .catch(err => {
+            console.log("/start", err)
+        })
 
 });
 
 bot.onText(/\/edit/, msg => {
-    console.log("edit:", msg)
-
     if (!lastMessage) {
         return bot.sendMessage(msg.from.id, 'Type /start and then /edit <caption>');
     }
@@ -41,14 +42,18 @@ bot.onText(/\/edit/, msg => {
 
     // Change caption
     return bot.editMessageCaption(caption, {chat_id: chatId, message_id: messageId}).then(() => {
-        bot.sendMessage(msg.from.id, `Caption changed to: ${ caption }`);
-    });
-
+      return bot.sendMessage(msg.from.id, `Caption changed to: ${ caption }`);
+    })
+        .catch(err => {
+            console.log("/edit", err)
+        })
 });
 
 bot.onText(/^[^/].*/, msg => {
-    console.log("onText:", msg)
-    bot.sendMessage(msg.chat.id, 'I am alive!');
+   return bot.sendMessage(msg.chat.id, 'I am alive!')
+       .catch(err => {
+           console.log("/edit", err)
+       })
 })
 
 function handleUpdateMessage(body) {
