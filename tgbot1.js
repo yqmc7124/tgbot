@@ -49,7 +49,7 @@ bot.onText(/^[^/].*/, msg => {
 
 function handleUpdateMessage(body) {
     console.log("handleUpdateMessage:", body)
-    bot.processUpdate(body);
+    if (body) bot.processUpdate(body);
 }
 
 module.exports = {
@@ -57,12 +57,12 @@ module.exports = {
         console.log("url:", req.url)
         switch (req.url) {
             case '/updateMessage': {
-                // let body = '';
-                // req.on('data', (data) => body += data);
-                // req.on('end', () => {
-                    handleUpdateMessage(req.body)
+                let body = '';
+                req.on('data', (data) => body += data);
+                req.on('end', () => {
+                    handleUpdateMessage(body)
                     res.end()
-                // })
+                })
                 break
             }
             default: {
