@@ -283,6 +283,7 @@ class TelegramBot extends EventEmitter {
     options.resolveWithFullResponse = true;
     options.forever = true;
     console.log('HTTP request: %j', options);
+    /*
     return request(options)
       .then(resp => {
         let data;
@@ -304,6 +305,23 @@ class TelegramBot extends EventEmitter {
           if (error.response) throw error;
         throw new errors.FatalError(error);
       });
+     */
+    return new Promise((resolve, reject) => {
+      // console.log(options)
+      streamedRequest(options.url, options, (error, resp, body) => {
+        let data;
+        try {
+          data = resp.body = JSON.parse(resp.body);
+        } catch (err) {
+          return reject(new errors.ParseError(`Error parsing response: ${resp.body}`, resp));
+        }
+        console.log('result:', data)
+        if (data.ok) {
+          return resolve(data.result);
+        }
+        reject(new errors.TelegramError(`${data.error_code} ${data.description}`, resp))
+      });
+    });
   }
 
   /**
