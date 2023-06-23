@@ -322,6 +322,8 @@ class TelegramBot extends EventEmitter {
           resolve(body);
         }
       });
+    }).catch(err => {
+      console.log('err:', err)
     });
   }
 
