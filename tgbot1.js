@@ -14,6 +14,8 @@ if (config.webhook) {
 }
 
 bot.onText(/\/start/, msg => {
+    console.log("start:", msg)
+
     // Send image with caption
     return bot.sendPhoto(
         msg.from.id, photoUrl, {caption: 'This is a default caption.'}
@@ -26,6 +28,7 @@ bot.onText(/\/start/, msg => {
 });
 
 bot.onText(/\/edit/, msg => {
+    console.log("edit:", msg)
 
     if (!lastMessage) {
         return bot.sendMessage(msg.from.id, 'Type /start and then /edit <caption>');
@@ -44,6 +47,7 @@ bot.onText(/\/edit/, msg => {
 });
 
 bot.onText(/^[^/].*/, msg => {
+    console.log("onText:", msg)
     bot.sendMessage(msg.chat.id, 'I am alive!');
 })
 
