@@ -25,9 +25,6 @@ bot.onText(/\/start/, msg => {
         lastMessage = [msg.from.id, re.message_id];
        return bot.sendMessage(msg.from.id, 'Now set a new caption using /edit <caption>');
     })
-        .catch(err => {
-            console.log("/start err:", err)
-        })
 
 });
 
@@ -45,16 +42,10 @@ bot.onText(/\/edit/, msg => {
     return bot.editMessageCaption(caption, {chat_id: chatId, message_id: messageId}).then(() => {
       return bot.sendMessage(msg.from.id, `Caption changed to: ${ caption }`);
     })
-        .catch(err => {
-            console.log("/edit", err)
-        })
 });
 
 bot.onText(/^[^/].*/, msg => {
    return bot.sendMessage(msg.chat.id, 'I am alive!')
-       .catch(err => {
-           console.log("/edit", err)
-       })
 })
 
 function handleUpdateMessage(body) {
@@ -70,8 +61,8 @@ module.exports = {
                 let body = '';
                 req.on('data', (data) => body += data);
                 req.on('end', () => {
-                    handleUpdateMessage(JSON.parse(body))
                     res.end()
+                    handleUpdateMessage(JSON.parse(body))
                 })
                 break
             }
